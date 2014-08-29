@@ -1,0 +1,15 @@
+<h2>Subs</h2>
+
+<ul>
+  <% @subs.each do |sub| %>
+    <li><%= link_to sub.title, sub_url(sub) %>
+      <br>
+        <%= short_description sub.description %>
+    </li>
+    <br>
+  <% end %>
+  
+  <br>
+  
+  <%= button_to "Create Sub Cloneddit", new_sub_url, method: :get %>
+</ul>

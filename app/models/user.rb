@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   
   attr_reader :password
   
+  has_many( :subs, class_name: 'Sub', 
+    foreign_key: :moderator_id, dependent: :destroy )
+  has_many( :posts, class_name: 'Post', 
+    foreign_key: :author_id, dependent: :destroy )
+  
   def self.generate_session_token
     SecureRandom::urlsafe_base64
   end

@@ -1,0 +1,13 @@
+<% if post.url.nil? %>
+  <%= link_to post.title, post_url(post) %>
+<% else %>
+  <%= link_to post.title, post.url %>
+<% end %>
+
+<br>
+
+<%= link_to "comments", post_url(post) %>
+
+<br>
+
+<%= post.author.username %>

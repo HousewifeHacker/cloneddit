@@ -21,4 +21,21 @@ class ApplicationController < ActionController::Base
     current_user.reset_session_token! if current_user
     session[:session_token] = nil
   end
+  
+  def require_login!
+    if current_user.nil?
+      flash[:errors] = [ "You must be logged in to do that!" ]
+      redirect_to login_url
+    end
+  end
+  
+  def require_moderator! sub_id = params[:id]
+    @sub = Sub.find(sub_id)
+    
+    if current_user != @sub.moderator
+      flash[:errors] = [ "Permission denied!" ]
+      redirect_to sub_url(@sub)
+    end 
+  end
+  
 end

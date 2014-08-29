@@ -1,0 +1,25 @@
+<h2><%= @sub.title %></h2>
+
+<div class="sidebar">
+  <%= link_to "Create a Post", new_sub_post_url(@sub) %>
+
+  <h3>Moderator</h3>
+  <p><%= @sub.moderator.username %></p>
+
+  <h3>Description:</h3>
+  <p><%= @sub.description%></p>
+  <br>
+
+  <% if current_user == @sub.moderator %>
+    <%= button_to "Edit", edit_sub_url(@sub), method: :get %>
+    <%= button_to "Delete", sub_url(@sub), method: :delete %>
+  <% end %>
+</div>
+
+<div class="posts">
+  <ul>
+  <% @sub.posts.each do |post| %>
+    <li><%= render "post", post: post %></li>
+  <% end %>
+</ul>
+</div>
