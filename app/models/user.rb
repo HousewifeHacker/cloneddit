@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_many( :posts, class_name: 'Post', 
     foreign_key: :author_id, dependent: :destroy )
   
+  has_many :comments, foreign_key: :author_id, dependent: :destroy
+  
   def self.generate_session_token
     SecureRandom::urlsafe_base64
   end

@@ -1,15 +1,33 @@
 <h2><%= @post.title %></h2>
 
-<% unless @post.url.nil? %>
+<% unless @post.url.blank? %>
   <h4><%= link_to @post.url, @post.url %></h4>
 <% end %>
-<% unless @post.content.nil? %>
+<% unless @post.content.blank? %>
   <p><%= @post.content %></p>
 <% end %>
+<br>
+
+<h4>Comments</h4>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li><%= comment.content %></li>
+    <% end %>
+  </ul>
+
+<h4>Posted to</h4>
+<ul>
+<% @post.subs.each do |sub| %>
+  <li><%= link_to sub.title, sub_url(sub) %></li>
+<% end %>
+</ul>
 
 <br>
 
 <% if @post.author == current_user %>
   <%= link_to "Edit", edit_post_url(@post) %>
-  <%= link_to "Delete", post_url(@post), method: :delete %>
 <% end %>
+
+<br>
+
+<%= link_to "Comment", new_post_comment_url(@post) %>

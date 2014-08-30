@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get 'posts/new'
-
-  get 'posts/show'
 
   root to: "subs#index"
   
-  resources :subs do
-    resources :posts, only: [ :new, :create ]
+  resources :subs 
+  
+  resources :posts, except: [ :destroy ] do
+    resources :comments, only: [ :new ]
   end
-  resources :posts, except: [ :new, :index, :create ]
+  
+  resources :comments, only: [ :create ]
   
   resources :users, only: [ :new, :create, :edit, :update ]
 
